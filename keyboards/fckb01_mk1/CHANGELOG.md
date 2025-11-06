@@ -1,4 +1,6 @@
 ### 2025-11-05
+- Capslock indicator function: turn 2 LEDs (under capslock and tab keys respectively) red if capslock is on.
+### 2025-11-05
 - Disabled BASE, EXTRAS layers. Renamed GAMING to RJ_BASE (this was the one closest to my current config, as handed by the manufacturer).
 - Enabled twinkle effect. Designated keys for speed control do not seem to be working.
 - Remapped keys:
