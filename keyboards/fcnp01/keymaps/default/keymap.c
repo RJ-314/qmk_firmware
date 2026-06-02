@@ -49,3 +49,17 @@ bool led_update_user(led_t led_state) {
     rgblight_set_layer_state(0, !led_state.num_lock);
     return true;
 }
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case KC_F16:
+            if (record->event.pressed) {
+                // when keycode KC_F16 is pressed
+                SEND_STRING("test@email.com");
+            } else {
+                // when keycode KC_F16 is released
+            }
+            break;
+    }
+    return true;
+};
