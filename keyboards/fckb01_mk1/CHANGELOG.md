@@ -1,3 +1,5 @@
+### 2026-06-02
+- Print custom string.
 ### 2025-11-05
 - Capslock indicator function: turn 2 LEDs (under capslock and tab keys respectively) red if capslock is on.
 ### 2025-11-05
