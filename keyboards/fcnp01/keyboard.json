@@ -12,7 +12,8 @@
         "command": false,
         "nkro": false,
         "backlight": false,
-        "rgblight": true,
+        "rgblight": false, //conflicts with rgb_matrix
+        "rgb_matrix": true,
         "audio": false,
         "key_lock": false
     },
@@ -40,6 +41,21 @@
         "animations": {
             "all": true
         }
+    },
+    "rgb_matrix": {
+        "led_count": 22,
+        "driver": "ws2812",
+        "hue_steps": 8,
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "max_brightness": 255,
+        "sleep": true,
+        "default": {
+            "on": true
+        },
+        "animations": {
+            "all": true
+        },
     },
     "ws2812": {
         "driver": "vendor",

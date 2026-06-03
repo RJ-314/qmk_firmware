@@ -20,8 +20,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         TO(_BASE), UG_TOGG,  UG_SPDD, UG_SPDU, UG_HUED,
         QK_BOOT,  UG_PREV, UG_NEXT, XXXXXXX, UG_HUEU,
         QK_RBT,   UG_SATD, UG_SATU, XXXXXXX,
-        XXXXXXX,  UG_VALD, UG_VALU, XXXXXXX,
-        XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX
+        RM_TOGG,  UG_VALD, UG_VALU, XXXXXXX,
+        RM_NEXT, XXXXXXX,  XXXXXXX, XXXXXXX
     )
 };
 
@@ -29,7 +29,8 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [0] = {ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
     [1] = {ENCODER_CCW_CW(UG_VALD, UG_VALU)},
 };
-
+//This works with RGBLIGHT, not with RGB_MATRIX
+/*
 const rgblight_segment_t PROGMEM my_numlock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {1, 1, HSV_RED}       // Light 1 LEDs, starting with LED 1
 );
@@ -48,7 +49,8 @@ void keyboard_post_init_user(void) {
 bool led_update_user(led_t led_state) {
     rgblight_set_layer_state(0, !led_state.num_lock);
     return true;
-}
+}*/
+
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -63,3 +65,35 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return true;
 };
+
+// this is needed for RGB_MATRIX
+led_config_t g_led_config = { {
+    // Key Matrix to LED Index
+    {0, 1,  2, 3, 4},
+    {5,  6, 7, 8, 9},
+    {10,   11, 12, 13},
+    {14,  15, 16, 17},
+    {18, 19,  20, 21},
+}, {
+    // LED Index to Physical Position
+    { 0,  0  }, { 50,  0  }, { 100,  0  }, { 150,  0 }, {  200,  0 },
+    { 0,  50 }, { 50,  50 }, { 100 , 50 }, { 150,  50}, {  200,  75 },
+    { 0,  100}, { 50,  100}, { 100 , 100}, { 150,  100},
+    { 0,  150}, { 50,  150}, { 100 , 150}, { 150,  150},
+    { 0,  200}, { 75,  200}, { 100 , 200}, { 150,  175},
+
+}, {
+    // LED Index to Flag
+    4,8,4,4,4,
+    4,4,4,4,4,
+    4,4,4,4,
+    4,4,4,4,
+    4,4,4,4
+} };
+
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    if (!host_keyboard_led_state().num_lock) {
+        RGB_MATRIX_INDICATOR_SET_COLOR(1, 255, 0, 0); // assuming caps lock is at led #5
+    }
+    return false;
+}
